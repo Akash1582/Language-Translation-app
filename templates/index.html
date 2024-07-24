@@ -1,0 +1,98 @@
+<!-- templates/index.html --> 
+<!DOCTYPE html> 
+<html lang="en"> 
+<head> 
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
+    <title>Language Translation App</title> 
+    <!-- Bootstrap CSS --> 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous"> 
+    <!-- Custom CSS --> 
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}"> 
+    <!-- jQuery (for dynamic textarea resizing) --> 
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha384-KyZXEAg3QhqLMpG8r+WBVDBv+4ZLeG8Scb8S+vlz5PAk4uHhF+2UCyJp2iv+gKQf" crossorigin="anonymous"></script> 
+</head> 
+
+<body> 
+    <div class="container-fluid"> 
+        <div class="row justify-content-center align-items-center" style="height: 100vh;"> 
+            <div class="col-lg-6 col-md-8"> 
+                <h1 class="text-center mb-4">Language Translation App</h1> 
+                <div class="card shadow-sm"> 
+                    <div class="card-body"> 
+                        <form action="/translate" method="post"> 
+                            <div class="form-group"> 
+                                <label for="source_lang">Source Language</label> 
+                                <select class="form-control" id="source_lang" name="source_lang"> 
+                                    <option value="en">English</option> 
+                                    <option value="fr">French</option> 
+                                    <option value="es">Spanish</option> 
+                                    <option value="de">German</option> 
+                                    <option value="hi">Hindi</option> 
+                                </select> 
+                            </div> 
+                            <div class="form-group"> 
+                                <label for="target_lang">Target Language</label> 
+                                <select class="form-control" id="target_lang" name="target_lang"> 
+                                    <option value="fr">French</option> 
+                                    <option value="es">Spanish</option> 
+                                    <option value="de">German</option> 
+                                    <option value="hi">Hindi</option> 
+                                    <option value="en">English</option> 
+                                </select> 
+                            </div> 
+                            <div class="form-group"> 
+                                <label for="formality">Formality</label> 
+                                <select class="form-control" id="formality" name="formality"> 
+                                    <option value="neutral">Neutral</option> 
+                                    <option value="formal">Formal</option> 
+                                    <option value="informal">Informal</option> 
+                                </select> 
+                            </div> 
+                            <div class="form-group"> 
+                                <label for="domain">Domain-specific Terminology</label> 
+                                <select class="form-control" id="domain" name="domain"> 
+                                    <option value="general">General</option> 
+                                    <option value="technical">Technical</option> 
+                                    <option value="medical">Medical</option> 
+                                </select> 
+                            </div> 
+                            <div class="form-group"> 
+                                <label for="source_text">Enter Text to Translate</label> 
+                                <textarea class="form-control resizable" id="source_text" name="source_text" rows="3" placeholder="Enter text to translate..."></textarea> 
+                            </div> 
+                            <button type="submit" class="btn btn-primary btn-block">Translate</button> 
+                        </form> 
+
+                        {% if translated_text %} 
+                        <hr> 
+                        <div class="translated-text"> 
+                            <h5 class="card-title">Translated Text</h5> 
+                            <p class="card-text">{{ translated_text }}</p> 
+                        </div> 
+
+                        {% endif %} 
+                    </div> 
+                </div> 
+            </div> 
+        </div> 
+    </div> 
+
+    <!-- Bootstrap JS (optional) --> 
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script> 
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js" integrity="sha384-2Ck4vIAF0F5kyh6TVS9HzdjxFp9HJwZrUwu2dIR1Zfj3RFYYkayQUp2WVVH7Y6Zu" crossorigin="anonymous"></script> 
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8sh+xhD0Egy0J6zbvp4qJjlh1Mk5b3wFZ0Jgqr" crossorigin="anonymous"></script> 
+
+    <!-- Custom script for dynamic textarea resizing --> 
+    <script> 
+        $(document).ready(function() { 
+            $('textarea.resizable').each(function () { 
+                this.setAttribute('style', 'height:' + (this.scrollHeight) + 'px;overflow-y:hidden;'); 
+            }).on('input', function () { 
+                this.style.height = 'auto'; 
+                this.style.height = (this.scrollHeight) + 'px'; 
+            }); 
+        }); 
+    </script> 
+</body> 
+</html> 
